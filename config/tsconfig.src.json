@@ -4,13 +4,15 @@
     "compilerOptions": {
         "target": "ES5",
 
-        "declaration": true,
         "sourceMap": true,
         "inlineSources": true,
-        "declarationMap": true,
 
         "rootDir": "../src",
         "outDir": "../dist",
+
+        "baseUrl": "../src",
+
+        "jsx": "react",
 
         "importsNotUsedAsValues": "preserve",
         "isolatedModules": true
