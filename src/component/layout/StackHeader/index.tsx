@@ -1,14 +1,16 @@
-import { Flex, Text, Button, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Text, Button, useColorModeValue, Box, Center } from '@chakra-ui/react';
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { IoIosArrowBack } from 'react-icons/io';
+import { SafeReactChild } from 'type';
 
 interface Props {
     title: string;
     backText?: string;
+    rightNode?: SafeReactChild;
 }
 
-export const StackHeader = React.memo(({ backText = '', title }: Props) => {
+export const StackHeader = React.memo(({ backText = '', title, rightNode }: Props) => {
     const backgroundColor = useColorModeValue('gray.100', 'gray.700');
     const history = useHistory();
 
@@ -17,7 +19,14 @@ export const StackHeader = React.memo(({ backText = '', title }: Props) => {
     };
 
     return (
-        <Flex position="sticky" top={0} alignItems="center" justifyContent="center" backgroundColor={backgroundColor}>
+        <Flex
+            position="sticky"
+            shadow="md"
+            top={0}
+            alignItems="center"
+            justifyContent="center"
+            backgroundColor={backgroundColor}
+        >
             <Button
                 p={0}
                 onClick={goBack}
@@ -26,8 +35,8 @@ export const StackHeader = React.memo(({ backText = '', title }: Props) => {
                 colorScheme="blue"
                 position="absolute"
                 left={4}
-                top="50%"
                 fontSize="md"
+                top="50%"
                 transform="translateY(-50%)"
             >
                 <IoIosArrowBack fontSize="20px" /> {backText}
@@ -35,6 +44,11 @@ export const StackHeader = React.memo(({ backText = '', title }: Props) => {
             <Text fontSize="md" fontWeight="medium" py={3}>
                 {title}
             </Text>
+            {rightNode && (
+                <Center position="absolute" right={4} top="50%" transform="translateY(-50%)">
+                    {rightNode}
+                </Center>
+            )}
         </Flex>
     );
 });

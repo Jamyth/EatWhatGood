@@ -12,6 +12,7 @@ export const BottomNavigation = React.memo(() => {
         <React.Fragment>
             <Box height={'90px'} />
             <Flex
+                shadow="lg"
                 ref={ref}
                 position="fixed"
                 w="100%"
@@ -20,7 +21,7 @@ export const BottomNavigation = React.memo(() => {
                 zIndex={10}
                 justifyContent="space-between"
                 alignItems="center"
-                px={12}
+                px={8}
                 py={3}
                 backgroundColor={backgroundColor}
             >

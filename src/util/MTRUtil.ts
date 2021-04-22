@@ -366,10 +366,65 @@ function translate(location: District): string {
     }
 }
 
+function getAirportExpressLine() {
+    return EnumUtil.toArray(AirportExpressLine);
+}
+
+function getDisneylandResortLine() {
+    return EnumUtil.toArray(DisneylandResortLine);
+}
+
+function getEastRailLine() {
+    return EnumUtil.toArray(EastRailLine);
+}
+
+function getIslandLine() {
+    return EnumUtil.toArray(IslandLine);
+}
+
+function getKwunTongLine() {
+    return EnumUtil.toArray(KwunTongLine);
+}
+
+function getSouthIslandLine() {
+    return EnumUtil.toArray(SouthIslandLine);
+}
+
+function getTseungKwanOLine() {
+    return EnumUtil.toArray(TseungKwanOLine);
+}
+
+function getTsuenWanLine() {
+    return EnumUtil.toArray(TsuenWanLine);
+}
+
+function getTuenMaLinePhaseOne() {
+    return EnumUtil.toArray(TuenMaLinePhaseOne);
+}
+
+function getTungChungLine() {
+    return EnumUtil.toArray(TungChungLine);
+}
+
+function getWestRailLine() {
+    return EnumUtil.toArray(WestRailLine);
+}
+
 export const MTRUtil = Object.freeze({
     getAllLocation,
     getKowloonLocation,
     getIslandLocation,
     getNewTerritoriesLocation,
     translate,
+    getAirportExpressLine,
+    getDisneylandResortLine,
+    getEastRailLine,
+    getIslandLine,
+    getKwunTongLine,
+    getSouthIslandLine,
+    getTseungKwanOLine,
+    getTsuenWanLine,
+    getTuenMaLinePhaseOne,
+    getTungChungLine,
+    getWestRailLine,
 });

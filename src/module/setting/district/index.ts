@@ -1,15 +1,15 @@
 import Recoil from 'recoil';
 import { injectLifeCycle, useCoilState, useHistory } from 'coil-react';
 import { Main } from './Main';
-import type { State } from './type';
+import type { State, DisplayMode } from './type';
 import type { Location } from 'history';
 import { District } from 'type/district';
+import { LocalStorageUtil, LocalStorageKey } from 'util/LocalStorageUtil';
 
 const initialState: State = {
     enabledDistrict: [],
+    displayMode: 'area',
 };
-
-const LOCAL_STORAGE_KEY = '@@EatWhatGood_SETTING_DISTRICT';
 
 export const SettingDistrictState = Recoil.atom({
     key: 'SettingDistrictState',
@@ -21,12 +21,8 @@ export const useSettingDistrictAction = () => {
     const history = useHistory<any>();
 
     const onRouteMatched = (routeParameter: any, location: Location<Readonly<any> | undefined>) => {
-        const rawState = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (rawState) {
-            setState(JSON.parse(rawState));
-        } else {
-            setState(initialState);
-        }
+        const state = LocalStorageUtil.getItem<State>(LocalStorageKey.SETTING_DISTRICT) ?? initialState;
+        setState(state);
     };
 
     const onSelectDistrict = (district: District) => {
@@ -40,14 +36,20 @@ export const useSettingDistrictAction = () => {
         updateLocalStorage();
     };
 
+    const changeDisplayMode = (mode: DisplayMode) => {
+        setState((state) => (state.displayMode = mode));
+        updateLocalStorage();
+    };
+
     const updateLocalStorage = () => {
         const state = JSON.stringify(getState());
-        localStorage.setItem(LOCAL_STORAGE_KEY, state);
+        LocalStorageUtil.setItem(LocalStorageKey.SETTING_DISTRICT, state);
     };
 
     return {
         onRouteMatched,
         onSelectDistrict,
+        changeDisplayMode,
     };
 };
 
