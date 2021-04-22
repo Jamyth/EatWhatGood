@@ -5,8 +5,6 @@ import { Switch, Route } from 'react-router-dom';
 import { ObjectUtil } from 'jamyth-web-util';
 import { NavigationService } from 'util/NavigationService';
 
-import { ThemeTogglor } from 'component/ThemeTogglor';
-
 export const Router = React.memo(() => {
     const backgroundColor = useColorModeValue('gray.200', 'gray.800');
 
@@ -18,7 +16,6 @@ export const Router = React.memo(() => {
                 ))}
             </Switch>
             <BottomNavigation />
-            <ThemeTogglor />
         </Flex>
     );
 });

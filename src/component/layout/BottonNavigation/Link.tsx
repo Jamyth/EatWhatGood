@@ -12,7 +12,7 @@ interface Props {
 export const Link = React.memo(({ children, icon: Icon, link }: Props) => {
     const history = useHistory();
     const location = useLocation();
-    const isActive = location.pathname === link;
+    const isActive = location.pathname === link || (link !== '/' && location.pathname.includes(link));
 
     const color = useColorModeValue('yellow.500', 'yellow.500');
 

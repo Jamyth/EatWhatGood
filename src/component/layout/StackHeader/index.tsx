@@ -1,0 +1,40 @@
+import { Flex, Text, Button, useColorModeValue } from '@chakra-ui/react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { IoIosArrowBack } from 'react-icons/io';
+
+interface Props {
+    title: string;
+    backText?: string;
+}
+
+export const StackHeader = React.memo(({ backText = '', title }: Props) => {
+    const backgroundColor = useColorModeValue('gray.100', 'gray.700');
+    const history = useHistory();
+
+    const goBack = () => {
+        history.goBack();
+    };
+
+    return (
+        <Flex position="sticky" top={0} alignItems="center" justifyContent="center" backgroundColor={backgroundColor}>
+            <Button
+                p={0}
+                onClick={goBack}
+                fontWeight="normal"
+                variant="link"
+                colorScheme="blue"
+                position="absolute"
+                left={4}
+                top="50%"
+                fontSize="md"
+                transform="translateY(-50%)"
+            >
+                <IoIosArrowBack fontSize="20px" /> {backText}
+            </Button>
+            <Text fontSize="md" fontWeight="medium" py={3}>
+                {title}
+            </Text>
+        </Flex>
+    );
+});

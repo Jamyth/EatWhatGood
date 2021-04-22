@@ -6,13 +6,13 @@ import type { Location } from 'history'
 
 const initialState: State = {}
 
-export const SettingState = Recoil.atom({
-    key: "SettingState",
+export const DrawState = Recoil.atom({
+    key: "DrawState",
     default: initialState
 });
 
-export const useSettingAction = () => {
-    const { getState, setState } = useCoilState(SettingState);
+export const useDrawAction = () => {
+    const { getState, setState } = useCoilState(DrawState);
     const history = useHistory<any>();
 
     const onMount = () => {
@@ -29,4 +29,4 @@ export const useSettingAction = () => {
     }
 }
 
-export const MainComponent = injectLifeCycle<any, any>(Main, useSettingAction)
+export const MainComponent = injectLifeCycle<any, any>(Main, useDrawAction)
