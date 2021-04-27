@@ -28,8 +28,10 @@ export class EnumSelect<Enum extends string | number> extends React.PureComponen
 
     render() {
         const { list, translator = (_) => _ } = this.props;
+        const mode = localStorage.getItem('chakra-ui-color-mode');
+        const backgroundColor = mode === 'dark' ? 'gray.700' : 'white';
         return (
-            <Select onChange={this.onChange} value={this.getValue()}>
+            <Select backgroundColor={backgroundColor} onChange={this.onChange} value={this.getValue()}>
                 <option value={'undefined'} disabled>
                     請選擇
                 </option>

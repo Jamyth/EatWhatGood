@@ -3,6 +3,7 @@ import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import { Link } from './Link';
 import { IoIosHome, IoIosSettings } from 'react-icons/io';
 import { BiPlusMedical } from 'react-icons/bi';
+import { FaMap } from 'react-icons/fa';
 
 export const BottomNavigation = React.memo(() => {
     const backgroundColor = useColorModeValue('gray.100', 'gray.700');
@@ -28,7 +29,10 @@ export const BottomNavigation = React.memo(() => {
                 <Link link="/" icon={IoIosHome}>
                     主頁
                 </Link>
-                <Link link="/create" icon={BiPlusMedical}>
+                <Link link="/list" icon={FaMap}>
+                    地區
+                </Link>
+                <Link link="/restaurant/create" icon={BiPlusMedical}>
                     新增
                 </Link>
                 <Link link="/setting" icon={IoIosSettings}>

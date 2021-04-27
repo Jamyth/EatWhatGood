@@ -3,6 +3,7 @@ const LocalStorageKeyPrefix = '@@EatWhatGood_';
 export enum LocalStorageKey {
     SETTING_DISTRICT = 'SETTING_DISTRICT',
     HOME = 'HOME',
+    RESTAURANT = 'RESTAURANT',
 }
 
 function getItem<T>(key: LocalStorageKey): T | null {

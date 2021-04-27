@@ -1,7 +1,7 @@
 import { async } from 'coil-react';
 import React from 'react';
 
-export type Path = '/' | '/create' | '/setting' | '/list' | '/draw' | '/setting/district';
+export type Path = '/' | '/restaurant/:type(create|update)' | '/setting' | '/list' | '/draw' | '/setting/district';
 
 interface Route {
     component: React.ComponentType;
@@ -11,8 +11,8 @@ export const NavigationService: Record<Path, Route> = {
     '/': {
         component: async(() => import('module/home'), 'MainComponent'),
     },
-    '/create': {
-        component: async(() => import('module/create'), 'MainComponent'),
+    '/restaurant/:type(create|update)': {
+        component: async(() => import('module/restaurant'), 'MainComponent'),
     },
     '/setting': {
         component: async(() => import('module/common/setting'), 'MainComponent'),

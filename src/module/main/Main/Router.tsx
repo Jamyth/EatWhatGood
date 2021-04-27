@@ -1,4 +1,4 @@
-import { Flex, useColorModeValue, useColorMode, Button } from '@chakra-ui/react';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { BottomNavigation } from 'component/layout/BottonNavigation';
 import { Switch, Route } from 'react-router-dom';
