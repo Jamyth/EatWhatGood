@@ -21,7 +21,7 @@ export const Main = React.memo(() => {
                 </MenuContainer>
                 <MenuContainer>
                     <MenuItem icon={BsMoon} label="黑暗模式">
-                        <Switch size="lg" value={colorMode === 'dark'} onChange={toggleColorMode} />
+                        <Switch value={colorMode === 'dark'} onChange={toggleColorMode} />
                     </MenuItem>
                     <MenuItem label="關於" icon={IoIosInformationCircle} linkOrAction="/setting/about" />
                 </MenuContainer>

@@ -27,7 +27,7 @@ export const RestaurantState = Recoil.atom({
 export const useRestaurantAction = () => {
     const { getState, setState } = useCoilState(RestaurantState);
     const history = useHistory<Restaurant>();
-    const toast = useToast;
+    const toast = useToast();
 
     const onRouteMatched = (routeParameter: RouteParameter, location: Location<Readonly<Restaurant> | undefined>) => {
         if (routeParameter.type === 'update') {
@@ -42,6 +42,7 @@ export const useRestaurantAction = () => {
         } else {
             resetForm();
         }
+        setState((state) => (state.tab = routeParameter.type));
     };
 
     const updateEditingData = (data: Partial<NullableRestaurant>) => {
@@ -71,6 +72,13 @@ export const useRestaurantAction = () => {
             }
             item.id = id;
             restaurants[itemIndex] = item;
+            toast({
+                status: 'success',
+                description: '已更新餐廳',
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
         } else {
             const isExist = restaurants.find((_) => _.name.trim() === name.trim());
             if (isExist) {
@@ -78,16 +86,16 @@ export const useRestaurantAction = () => {
             }
             item.id = _id;
             restaurants.push(item);
+            toast({
+                status: 'success',
+                description: '已新增餐廳',
+                duration: 5000,
+                isClosable: true,
+                position: 'top',
+            });
         }
         LocalStorageUtil.setItem(LocalStorageKey.RESTAURANT, JSON.stringify(restaurants));
         resetForm();
-        toast({
-            status: 'success',
-            title: '已新增餐廳',
-            duration: 5000,
-            isClosable: true,
-            position: 'top',
-        });
     };
 
     const resetForm = () => {

@@ -9,10 +9,10 @@ export const Router = React.memo(() => {
     const backgroundColor = useColorModeValue('gray.200', 'gray.800');
 
     return (
-        <Flex backgroundColor={backgroundColor} minH="100vh" flex={1} flexDirection="column" position="relative">
+        <Flex backgroundColor={backgroundColor} minH="100vh" pb="90px" flexDirection="column">
             <Switch>
                 {ObjectUtil.toArray(NavigationService, (path, { component }) => (
-                    <Route exact path={path} component={component} />
+                    <Route exact path={path} component={component} key={path} />
                 ))}
                 <Redirect to="/" />
             </Switch>

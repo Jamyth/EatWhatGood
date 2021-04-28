@@ -5,13 +5,34 @@ import { MTRUtil } from 'util/MTRUtil';
 import { LocalStorageUtil, LocalStorageKey } from 'util/LocalStorageUtil';
 import type { State as SettingDistrictState } from 'module/setting/district/type';
 
-interface Props {
+interface Props<AllowNull extends boolean> {
     value: District | null;
-    onChange: (value: District) => void;
+    allowNull: AllowNull;
+    onChange: (val: AllowNull extends false ? District : District | null) => void;
 }
 
-export const DistrictSelector = React.memo(({ value, onChange }: Props) => {
-    const list =
-        LocalStorageUtil.getItem<SettingDistrictState>(LocalStorageKey.SETTING_DISTRICT)?.enabledDistrict ?? [];
-    return <EnumSelect.InitialNullable value={value} list={list} onChange={onChange} translator={MTRUtil.translate} />;
-});
+export class DistrictSelector<AllowNull extends boolean> extends React.PureComponent<Props<AllowNull>> {
+    render() {
+        const { allowNull, onChange, value } = this.props;
+        const list =
+            LocalStorageUtil.getItem<SettingDistrictState>(LocalStorageKey.SETTING_DISTRICT)?.enabledDistrict ?? [];
+        if (allowNull) {
+            return (
+                <EnumSelect.Nullable
+                    list={list}
+                    translator={MTRUtil.translate}
+                    value={value}
+                    onChange={onChange as (value: District | null) => void}
+                />
+            );
+        }
+        return (
+            <EnumSelect.InitialNullable
+                value={value}
+                list={list}
+                onChange={onChange as (value: District) => void}
+                translator={MTRUtil.translate}
+            />
+        );
+    }
+}

@@ -46,7 +46,6 @@ export const DistrictSelector = React.memo(({ title, list, defaultOpen = false }
                         <MenuItem label={MTRUtil.translate(location)} key={location}>
                             <Switch
                                 onChange={() => onSelectDistrict(location)}
-                                size="lg"
                                 value={enabledDistricts.includes(location)}
                             />
                         </MenuItem>

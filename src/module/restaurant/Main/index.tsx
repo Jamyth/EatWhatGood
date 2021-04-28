@@ -41,10 +41,17 @@ export const Main = React.memo(() => {
                         <DistrictCheckbox value={district} onChange={(district) => updateEditingData({ district })} />
                     </FormControl>
                     <HStack w="100%">
-                        <Button disabled={list === null || list.length === 0} onClick={onFinish}>
+                        <Button
+                            fontWeight="normal"
+                            bgColor="yellow.500"
+                            disabled={list === null || list.length === 0}
+                            onClick={onFinish}
+                        >
                             {tab === 'create' ? '新增' : '修改'}
                         </Button>
-                        <Button onClick={resetForm}>重設</Button>
+                        <Button fontWeight="normal" onClick={resetForm}>
+                            重設
+                        </Button>
                     </HStack>
                 </VStack>
             </Box>

@@ -2,12 +2,12 @@ import React from 'react';
 import { Switch as ChakraSwitch, SwitchProps } from '@chakra-ui/react';
 import type { ControlledFormValue } from 'type';
 
-interface Props extends ControlledFormValue<boolean>, Omit<SwitchProps, 'value' | 'onChange'> {}
+interface Props extends ControlledFormValue<boolean> {}
 
-export const Switch = React.memo(({ value, onChange, ...props }: Props) => {
+export const Switch = React.memo(({ value, onChange }: Props) => {
     const onCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.checked);
     };
 
-    return <ChakraSwitch isChecked={value} onChange={onCheck} {...props} />;
+    return <ChakraSwitch isChecked={value} onChange={onCheck} />;
 });

@@ -1,6 +1,13 @@
 import { async } from 'coil-react';
 import React from 'react';
 
+import { MainComponent as Home } from 'module/home';
+import { MainComponent as Restaurant } from 'module/restaurant';
+import { MainComponent as Setting } from 'module/common/setting';
+import { MainComponent as SettingDistrict } from 'module/setting/district';
+import { MainComponent as List } from 'module/list';
+import { MainComponent as Draw } from 'module/draw';
+
 export type Path = '/' | '/restaurant/:type(create|update)' | '/setting' | '/list' | '/draw' | '/setting/district';
 
 interface Route {
@@ -9,21 +16,21 @@ interface Route {
 
 export const NavigationService: Record<Path, Route> = {
     '/': {
-        component: async(() => import('module/home'), 'MainComponent'),
+        component: Home,
     },
     '/restaurant/:type(create|update)': {
-        component: async(() => import('module/restaurant'), 'MainComponent'),
+        component: Restaurant,
     },
     '/setting': {
-        component: async(() => import('module/common/setting'), 'MainComponent'),
+        component: Setting,
     },
     '/setting/district': {
-        component: async(() => import('module/setting/district'), 'MainComponent'),
+        component: SettingDistrict,
     },
     '/list': {
-        component: async(() => import('module/list'), 'MainComponent'),
+        component: List,
     },
     '/draw': {
-        component: async(() => import('module/draw'), 'MainComponent'),
+        component: Draw,
     },
 };

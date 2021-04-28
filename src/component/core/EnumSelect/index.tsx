@@ -2,16 +2,19 @@ import React from 'react';
 import { Select, SelectProps } from '@chakra-ui/react';
 import { ControlledFormValue } from 'type';
 import { InitialNullable } from './InitialNullable';
+import { SafeReactChild } from 'type';
+import { Nullable } from './Nullable';
 
 export interface BaseProps<Enum extends string | number> extends Omit<SelectProps, 'value' | 'onChange'> {
     list: readonly Enum[];
-    translator?: (value: Enum) => string;
+    translator?: (value: Enum) => SafeReactChild;
 }
 
 interface Props<Enum extends string | number> extends BaseProps<Enum>, ControlledFormValue<Enum> {}
 
 export class EnumSelect<Enum extends string | number> extends React.PureComponent<Props<Enum>> {
     static InitialNullable = InitialNullable;
+    static Nullable = Nullable;
 
     onChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value as Enum;
@@ -21,7 +24,7 @@ export class EnumSelect<Enum extends string | number> extends React.PureComponen
     getValue() {
         const value = this.props.value;
         if (value === null) {
-            return 'undefined';
+            return undefined;
         }
         return value;
     }
@@ -32,9 +35,6 @@ export class EnumSelect<Enum extends string | number> extends React.PureComponen
         const backgroundColor = mode === 'dark' ? 'gray.700' : 'white';
         return (
             <Select backgroundColor={backgroundColor} onChange={this.onChange} value={this.getValue()}>
-                <option value={'undefined'} disabled>
-                    請選擇
-                </option>
                 {list.map((option, index) => (
                     <option value={option} key={index}>
                         {translator(option)}
