@@ -1,7 +1,7 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { BottomNavigation } from 'component/layout/BottonNavigation';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { ObjectUtil } from 'jamyth-web-util';
 import { NavigationService } from 'util/NavigationService';
 
@@ -14,6 +14,7 @@ export const Router = React.memo(() => {
                 {ObjectUtil.toArray(NavigationService, (path, { component }) => (
                     <Route exact path={path} component={component} />
                 ))}
+                <Redirect to="/" />
             </Switch>
             <BottomNavigation />
         </Flex>

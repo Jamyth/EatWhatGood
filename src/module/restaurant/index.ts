@@ -6,6 +6,7 @@ import type { Location } from 'history';
 import type { Restaurant } from 'type/restaurant';
 import { ObjectUtil } from 'jamyth-web-util';
 import { LocalStorageKey, LocalStorageUtil } from '../../util/LocalStorageUtil';
+import { useToast } from '@chakra-ui/react';
 
 const initialEditingData: NullableRestaurant = {
     name: null,
@@ -25,12 +26,10 @@ export const RestaurantState = Recoil.atom({
 
 export const useRestaurantAction = () => {
     const { getState, setState } = useCoilState(RestaurantState);
-    const history = useHistory<any>();
+    const history = useHistory<Restaurant>();
+    const toast = useToast;
 
-    const onRouteMatched = (
-        routeParameter: RouteParameter,
-        location: Location<Readonly<Restaurant & { id: string }> | undefined>,
-    ) => {
+    const onRouteMatched = (routeParameter: RouteParameter, location: Location<Readonly<Restaurant> | undefined>) => {
         if (routeParameter.type === 'update') {
             const restaurant = location.state;
             if (!restaurant) {
@@ -73,12 +72,22 @@ export const useRestaurantAction = () => {
             item.id = id;
             restaurants[itemIndex] = item;
         } else {
+            const isExist = restaurants.find((_) => _.name.trim() === name.trim());
+            if (isExist) {
+                throw new Error('有一間同名既餐廳啵');
+            }
             item.id = _id;
             restaurants.push(item);
         }
         LocalStorageUtil.setItem(LocalStorageKey.RESTAURANT, JSON.stringify(restaurants));
-
         resetForm();
+        toast({
+            status: 'success',
+            title: '已新增餐廳',
+            duration: 5000,
+            isClosable: true,
+            position: 'top',
+        });
     };
 
     const resetForm = () => {
@@ -93,4 +102,4 @@ export const useRestaurantAction = () => {
     };
 };
 
-export const MainComponent = injectLifeCycle<any, any>(Main, useRestaurantAction);
+export const MainComponent = injectLifeCycle<RouteParameter, Restaurant>(Main, useRestaurantAction);
