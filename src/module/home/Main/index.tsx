@@ -49,7 +49,7 @@ export const Main = React.memo(() => {
                 <Heading>今日食咩好？</Heading>
                 <Box mt={4}>
                     <DistrictSelector
-                        allowNull={false}
+                        allowNull
                         value={district}
                         onChange={(selectedDistrict) => updateState({ selectedDistrict })}
                     />

@@ -9,11 +9,12 @@ interface Props<AllowNull extends boolean> {
     value: District | null;
     allowNull: AllowNull;
     onChange: (val: AllowNull extends false ? District : District | null) => void;
+    nullText?: string;
 }
 
 export class DistrictSelector<AllowNull extends boolean> extends React.PureComponent<Props<AllowNull>> {
     render() {
-        const { allowNull, onChange, value } = this.props;
+        const { allowNull, onChange, value, nullText } = this.props;
         const list =
             LocalStorageUtil.getItem<SettingDistrictState>(LocalStorageKey.SETTING_DISTRICT)?.enabledDistrict ?? [];
         if (allowNull) {
@@ -22,6 +23,7 @@ export class DistrictSelector<AllowNull extends boolean> extends React.PureCompo
                     list={list}
                     translator={MTRUtil.translate}
                     value={value}
+                    nullText={nullText}
                     onChange={onChange as (value: District | null) => void}
                 />
             );
