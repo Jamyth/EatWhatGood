@@ -35,15 +35,12 @@ export const Main = React.memo(() => {
             >
                 冇地區揀？
                 <br />
-                前往{' '}
+                {'前往 '}
                 <Link textDecoration="underline" to="/setting/district" as={NavLink}>
                     地區列表
-                </Link>{' '}
-                啟用想要既地區啦！
+                </Link>
+                {' 啟用想要既地區啦！'}
             </Box>
-            <Flex flex={1} overflowY="scroll" px={6} py={12}>
-                {/** TODO: Feature List */}
-            </Flex>
         </Flex>
     );
 });
