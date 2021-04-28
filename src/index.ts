@@ -9,15 +9,36 @@ startApp({
     useError: useErrorHandler,
 });
 
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker
-            .register('/service-worker.js')
-            .then((registration) => {
-                console.log('SW registered');
-            })
-            .catch((registrationError) => {
-                console.log('SW registration failed: ', registrationError);
-            });
-    });
-}
+(window as any).isUpdateAvailable = new Promise((resolve, reject) => {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker
+                .register('/service-worker.js')
+                .then((registration) => {
+                    console.log('SW registered');
+
+                    registration.onupdatefound = () => {
+                        const installingWorker = registration.installing;
+                        if (installingWorker) {
+                            installingWorker.onstatechange = () => {
+                                switch (installingWorker.state) {
+                                    case 'installed':
+                                        if (navigator.serviceWorker.controller) {
+                                            // new update available
+                                            resolve(true);
+                                        } else {
+                                            // no update available
+                                            resolve(false);
+                                        }
+                                        break;
+                                }
+                            };
+                        }
+                    };
+                })
+                .catch((registrationError) => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+        });
+    }
+});

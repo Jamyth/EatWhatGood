@@ -41,6 +41,7 @@ export const useRestaurantAction = () => {
             });
         } else {
             resetForm();
+            setState((state) => (state.id = null));
         }
         setState((state) => (state.tab = routeParameter.type));
     };

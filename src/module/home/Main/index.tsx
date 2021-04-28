@@ -15,6 +15,7 @@ export const Main = React.memo(() => {
     const enabledDistricts =
         LocalStorageUtil.getItem<SettingDistrictState>(LocalStorageKey.SETTING_DISTRICT)?.enabledDistrict ?? [];
     const [name, setName] = React.useState('');
+    const [drawn, setDrawn] = React.useState(false);
     const { updateState } = useHomeAction();
 
     const getRestaurant = () => {
@@ -23,7 +24,7 @@ export const Main = React.memo(() => {
         setName(name);
     };
     function setDeceleratingTimeout(callback: () => void, factor: number, times: number) {
-        var internalCallback = (function (t, counter) {
+        const internalCallback = (function (t, counter) {
             return function () {
                 if (--t > 0) {
                     window.setTimeout(internalCallback, ++counter * factor);
@@ -39,7 +40,11 @@ export const Main = React.memo(() => {
         if (!restaurants.length) {
             return;
         }
+        setDrawn(false);
         setDeceleratingTimeout(getRestaurant, 10, 30);
+        setTimeout(() => {
+            setDrawn(true);
+        }, 4000);
     };
 
     return (
@@ -50,6 +55,7 @@ export const Main = React.memo(() => {
                 <Box mt={4}>
                     <DistrictSelector
                         allowNull
+                        nullText="請選擇"
                         value={district}
                         onChange={(selectedDistrict) => updateState({ selectedDistrict })}
                     />
@@ -66,7 +72,7 @@ export const Main = React.memo(() => {
                         幫我揀食咩
                     </Button>
                 </Box>
-                <Heading textAlign="center" mt={4}>
+                <Heading textAlign="center" mt={4} color={drawn ? 'yellow.500' : undefined}>
                     {name}
                 </Heading>
                 {!enabledDistricts.length && (

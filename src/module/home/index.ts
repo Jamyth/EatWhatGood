@@ -6,7 +6,7 @@ import type { Location } from 'history';
 import { LocalStorageUtil, LocalStorageKey } from 'util/LocalStorageUtil';
 import { ObjectUtil } from 'jamyth-web-util';
 import { District } from 'type/district';
-import { Restaurant } from '../../type/restaurant';
+import { Restaurant } from 'type/restaurant';
 
 const initialState: State = {
     selectedDistrict: null,
