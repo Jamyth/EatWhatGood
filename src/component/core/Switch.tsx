@@ -9,5 +9,5 @@ export const Switch = React.memo(({ value, onChange }: Props) => {
         onChange(e.target.checked);
     };
 
-    return <ChakraSwitch isChecked={value} onChange={onCheck} />;
+    return <ChakraSwitch size="lg" isChecked={value} onChange={onCheck} />;
 });

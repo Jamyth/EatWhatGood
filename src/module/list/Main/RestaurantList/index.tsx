@@ -8,7 +8,7 @@ export const RestaurantList = React.memo(() => {
     return (
         <Box maxH="50vh" overflowY="scroll">
             {enabledDistrict.map((_) => (
-                <ListItem district={_} />
+                <ListItem district={_} key={_} />
             ))}
         </Box>
     );

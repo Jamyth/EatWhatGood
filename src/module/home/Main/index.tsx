@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Flex, Link } from '@chakra-ui/react';
+import { Box, Button, Heading, Flex, Link, useToast } from '@chakra-ui/react';
 import React from 'react';
 import { useHomeState } from '../hooks';
 import { useHomeAction } from 'module/home';
@@ -55,7 +55,14 @@ export const Main = React.memo(() => {
                     />
                 </Box>
                 <Box mt={4}>
-                    <Button onClick={draw} fontWeight="medium" backgroundColor="yellow.500" isFullWidth h="60px">
+                    <Button
+                        disabled={!restaurants.length}
+                        onClick={draw}
+                        fontWeight="medium"
+                        backgroundColor="yellow.500"
+                        isFullWidth
+                        h="60px"
+                    >
                         幫我揀食咩
                     </Button>
                 </Box>

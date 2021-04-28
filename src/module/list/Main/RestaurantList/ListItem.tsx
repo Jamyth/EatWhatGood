@@ -26,6 +26,7 @@ export const ListItem = React.memo(({ district }: Props) => {
                 {restaurants.length ? (
                     restaurants.map((_) => (
                         <Button
+                            key={_.id}
                             isFullWidth
                             variant="ghost"
                             justifyContent="flex-start"
