@@ -19,7 +19,7 @@ export const ListItem = React.memo(({ district }: Props) => {
 
     return (
         <Box position="relative">
-            <Box position="sticky" px={4} py={1} top={0} backgroundColor={backgroundColor}>
+            <Box position="sticky" zIndex={1} px={4} py={1} top={0} backgroundColor={backgroundColor}>
                 <Text fontWeight="medium">{MTRUtil.translate(district)}</Text>
             </Box>
             <VStack spacing={0} divider={<StackDivider mx={4} />}>
