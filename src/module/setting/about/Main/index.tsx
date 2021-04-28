@@ -30,7 +30,7 @@ export const Main = React.memo(() => {
                     w="100%"
                 >
                     <Flex>
-                        <Image w="80px" src={require('./asset/app-icon.png')} />
+                        <Image w="80px" h="80px" src={require('./asset/app-icon.png')} />
                         <Flex flexDirection="column" justifyContent="space-around">
                             <Text fontSize="lg" fontWeight="medium">
                                 食咩好
