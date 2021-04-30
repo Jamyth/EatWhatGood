@@ -15,7 +15,7 @@ export const CheckUpdate = React.memo(() => {
                 });
             }
         });
-    }, []);
+    });
 
     return null;
 });
