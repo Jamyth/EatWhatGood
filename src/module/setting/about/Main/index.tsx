@@ -9,7 +9,7 @@ import type { State as SettingDistrictState } from 'module/setting/district/type
 import { Restaurant } from 'type/restaurant';
 import { Flex, useColorModeValue, Image, Text } from '@chakra-ui/react';
 
-const VERSION = 'Version 1.0.3';
+const VERSION = 'Version 1.0.4';
 
 export const Main = React.memo(() => {
     const allLocations = MTRUtil.getAllLocation();
