@@ -9,14 +9,17 @@ interface Props<AllowNull extends boolean> {
     value: District | null;
     allowNull: AllowNull;
     onChange: (val: AllowNull extends false ? District : District | null) => void;
+    list?: District[];
     nullText?: string;
 }
 
 export class DistrictSelector<AllowNull extends boolean> extends React.PureComponent<Props<AllowNull>> {
     render() {
-        const { allowNull, onChange, value, nullText } = this.props;
+        const { allowNull, onChange, value, nullText, list: _list } = this.props;
         const list =
-            LocalStorageUtil.getItem<SettingDistrictState>(LocalStorageKey.SETTING_DISTRICT)?.enabledDistrict ?? [];
+            _list ??
+            LocalStorageUtil.getItem<SettingDistrictState>(LocalStorageKey.SETTING_DISTRICT)?.enabledDistrict ??
+            [];
         if (allowNull) {
             return (
                 <EnumSelect.Nullable

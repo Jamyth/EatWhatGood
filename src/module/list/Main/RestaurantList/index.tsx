@@ -4,7 +4,8 @@ import { useListState } from '../../hooks';
 import { ListItem } from './ListItem';
 
 export const RestaurantList = React.memo(() => {
-    const enabledDistrict = useListState((state) => state.enabledDistrict);
+    const restaurant = useListState((state) => state.restaurants);
+    const enabledDistrict = [...new Set(restaurant.flatMap((_) => _.district))];
     return (
         <Box maxH="50vh" overflowY="scroll">
             {enabledDistrict.map((_) => (

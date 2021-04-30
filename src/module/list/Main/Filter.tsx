@@ -7,6 +7,8 @@ import { useListAction } from '../index';
 
 export const Filter = React.memo(() => {
     const { name, district } = useListState((state) => state.filter);
+    const restaurant = useListState((state) => state.restaurants);
+    const enabledDistrict = [...new Set(restaurant.flatMap((_) => _.district))];
     const { updateFilter, resetFilter, pushFilterToHistory } = useListAction();
     return (
         <Flex mt={2} flexWrap="wrap">
@@ -19,7 +21,12 @@ export const Filter = React.memo(() => {
             <Flex w="50%">
                 <FormControl>
                     <FormLabel>出現地區</FormLabel>
-                    <DistrictSelector allowNull value={district} onChange={(district) => updateFilter({ district })} />
+                    <DistrictSelector
+                        allowNull
+                        list={enabledDistrict}
+                        value={district}
+                        onChange={(district) => updateFilter({ district })}
+                    />
                 </FormControl>
             </Flex>
             <Flex flex={1} justifyContent="flex-end" mt={2}>

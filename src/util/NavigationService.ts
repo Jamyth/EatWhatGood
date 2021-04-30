@@ -7,6 +7,8 @@ import { MainComponent as Setting } from 'module/common/setting';
 import { MainComponent as SettingDistrict } from 'module/setting/district';
 import { MainComponent as List } from 'module/list';
 import { MainComponent as About } from 'module/setting/about';
+import { MainComponent as SettingShare } from 'module/setting/share';
+import { MainComponent as SettingScan } from 'module/setting/scan';
 
 export type Path =
     | '/'
@@ -14,7 +16,9 @@ export type Path =
     | '/setting'
     | '/list'
     | '/setting/district'
-    | '/setting/about';
+    | '/setting/about'
+    | '/setting/share'
+    | '/setting/scan';
 
 interface Route {
     component: React.ComponentType;
@@ -44,5 +48,11 @@ export const NavigationService: Record<Path, Route> = {
     '/setting/about': {
         component: About,
         // component: async(() => import('module/list'), 'MainComponent'),
+    },
+    '/setting/share': {
+        component: SettingShare,
+    },
+    '/setting/scan': {
+        component: SettingScan,
     },
 };

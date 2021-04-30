@@ -26,6 +26,7 @@ export const StackHeader = React.memo(({ backText = '', title, rightNode }: Prop
             alignItems="center"
             justifyContent="center"
             backgroundColor={backgroundColor}
+            zIndex={100}
         >
             <Button
                 p={0}
