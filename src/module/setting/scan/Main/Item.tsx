@@ -6,7 +6,7 @@ import { BsChevronRight } from 'react-icons/bs';
 import { MTRUtil } from 'util/MTRUtil';
 
 interface Props {
-    restaurant: Restaurant;
+    restaurant: Omit<Restaurant, 'id'>;
 }
 
 export const Item = React.memo(({ restaurant }: Props) => {

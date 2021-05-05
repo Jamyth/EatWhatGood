@@ -8,7 +8,7 @@ export const CheckUpdate = React.memo(() => {
         (window as any)?.['isUpdateAvailable'].then((isAvailable: boolean) => {
             if (isAvailable) {
                 toast({
-                    description: 'New Update available !',
+                    description: '有新版本喇喎！',
                     position: 'bottom',
                     isClosable: true,
                     status: 'info',
