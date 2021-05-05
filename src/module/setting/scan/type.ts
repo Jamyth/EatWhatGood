@@ -1,7 +1,8 @@
-import type { QRContent } from 'type/QRContent';
+// import type { QRContent } from 'type/QRContent';
+import { GetRestaurantByQRCodeAJAXResponse } from 'type/api';
 
 export interface State {
     selectedRestaurants: string[];
-    content: QRContent | null;
+    content: GetRestaurantByQRCodeAJAXResponse | null;
     useImage: boolean;
 }

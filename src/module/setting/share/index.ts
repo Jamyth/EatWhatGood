@@ -5,6 +5,8 @@ import type { State } from './type';
 import type { QRContent } from 'type/QRContent';
 import { LocalStorageKey, LocalStorageUtil } from 'util/LocalStorageUtil';
 import { Restaurant } from 'type/restaurant';
+import { CreateQRCodeHashAJAXRequest } from 'type/api';
+import { ShareAJAXService } from '../../../util/service/ShareAJAXService';
 
 const initialState: State = {
     selectedRestaurant: [],
@@ -28,7 +30,7 @@ export const useSettingShareAction = () => {
         setState((state) => (state.selectedRestaurant = restaurant));
     };
 
-    const generateQRCode = () => {
+    const generateQRCode = async () => {
         const restaurantNames = getState().selectedRestaurant;
         if (!restaurantNames.length) {
             throw new Error('至少要揀一間餐廳 Share 啵');
@@ -40,10 +42,11 @@ export const useSettingShareAction = () => {
                 name: convertToUnicode(name),
             }));
 
-        const qrContent: QRContent = {
-            key: '@@EatWhatGood',
+        const request: CreateQRCodeHashAJAXRequest = {
             restaurants,
         };
+
+        const qrContent = await ShareAJAXService.createQRCodeHash(request);
 
         setState((state) => (state.qrContent = qrContent));
     };

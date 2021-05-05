@@ -9,7 +9,8 @@
         "lint": "yarn run-script script/lint.ts",
         "build": "yarn run-script script/build.ts",
         "module": "coil-react",
-        "start": "yarn run-script script/start.ts"
+        "start": "yarn run-script script/start.ts",
+        "api": "yarn run-script script/api.ts"
     },
     "files": [
         "dist/**"
@@ -21,6 +22,7 @@
         "@types/file-saver": "2.0.2",
         "@types/node": "14.14.41",
         "@types/react-qr-reader": "2.1.3",
+        "api-code-generator": "1.0.0",
         "eslint-config-iamyth": "0.0.6",
         "mocha": "8.3.2",
         "prettier": "2.2.1",

@@ -6,6 +6,8 @@ import { QRContent } from 'type/QRContent';
 import { useToast } from '@chakra-ui/react';
 import { Restaurant } from 'type/restaurant';
 import { LocalStorageUtil, LocalStorageKey } from 'util/LocalStorageUtil';
+import { ShareAJAXService } from '../../../util/service/ShareAJAXService';
+import { District } from 'type/district';
 
 const initialState: State = {
     selectedRestaurants: [],
@@ -56,13 +58,13 @@ export const useSettingScanAction = () => {
                 const index = list.indexOf(isExist);
                 const newItem = { ...isExist };
                 const district = [...new Set([...newItem.district, ...restaurant.district])];
-                newItem.district = district;
+                newItem.district = district as District[];
                 list[index] = newItem;
             } else {
                 const id = Date.now().toString();
                 list.push({
                     id,
-                    ...restaurant,
+                    ...(restaurant as Omit<Restaurant, 'id'>),
                 });
             }
         }
@@ -79,29 +81,13 @@ export const useSettingScanAction = () => {
         });
     };
 
-    const updateContent = (content: string) => {
-        const json: QRContent = JSON.parse(content);
-        if (json.key !== '@@EatWhatGood') {
-            toast({
-                status: 'error',
-                position: 'top',
-                description: '此 QR Code 並非來自 食咩好！',
-                isClosable: true,
-                duration: 5000,
-            });
-        }
-        const { key } = json;
-        const restaurants = json.restaurants.map(({ name, ...rest }) => ({
+    const updateContent = async (url: string) => {
+        const content = await ShareAJAXService.getRestaurantByQRCode(url);
+        const restaurants = content.restaurants.map(({ name, ...rest }) => ({
             ...rest,
             name: unicodeToString(name),
         }));
-        setState(
-            (state) =>
-                (state.content = {
-                    key,
-                    restaurants,
-                }),
-        );
+        setState((state) => (state.content = { restaurants }));
     };
 
     const unicodeToString = (unicode: string) => {
