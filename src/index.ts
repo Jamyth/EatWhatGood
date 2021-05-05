@@ -17,6 +17,8 @@ startApp({
                 .then((registration) => {
                     console.log('SW registered');
 
+                    registration.update();
+
                     registration.onupdatefound = () => {
                         const installingWorker = registration.installing;
                         if (installingWorker) {
