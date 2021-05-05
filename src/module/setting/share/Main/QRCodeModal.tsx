@@ -27,7 +27,7 @@ export const QRCodeModal = React.memo(() => {
                     <Box textAlign="center" mb={2} fontWeight="bold" fontSize="xl" letterSpacing={1.5}>
                         食咩好
                     </Box>
-                    <QRCode id="qr-code" style={qrCodeStyle} level="L" value={JSON.stringify(qrContent)} />
+                    <QRCode id="qr-code" style={qrCodeStyle} level="H" value={JSON.stringify(qrContent)} />
                     <Flex flexDirection="row-reverse">
                         <ButtonGroup mt={6}>
                             {/* <Button fontWeight="normal" bgColor="yellow.500" onClick={toPng}>
