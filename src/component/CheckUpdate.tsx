@@ -34,7 +34,7 @@ export const CheckUpdate = React.memo(() => {
 
     React.useEffect(() => {
         handleUpdate();
-    }, []);
+    });
 
     return null;
 });
