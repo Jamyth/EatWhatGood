@@ -7,6 +7,7 @@ import { Item } from './Item';
 import { StackHeader } from 'component/layout/StackHeader';
 import { useSettingScanAction } from '../index';
 import { Checkbox, CheckboxGroup } from '@chakra-ui/checkbox';
+import { Restaurant } from 'type/restaurant';
 
 export const Main = React.memo(() => {
     const showContent = useSettingScanState((state) => state.content !== null);
@@ -59,7 +60,9 @@ export const Main = React.memo(() => {
                     <CheckboxGroup value={selectedRestaurants} onChange={updateSelectedRestaurant}>
                         <VStack spacing={0} divider={<StackDivider mx={4} />}>
                             {content.restaurants.length ? (
-                                content.restaurants.map((_, i) => <Item key={i} restaurant={_} />)
+                                content.restaurants.map((_, i) => (
+                                    <Item key={i} restaurant={_ as Omit<Restaurant, 'id'>} />
+                                ))
                             ) : (
                                 <Text w="100%" px={4}>
                                     沒有餐廳
