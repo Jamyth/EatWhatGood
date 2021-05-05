@@ -4,5 +4,5 @@ export type EatWhatGoodKey = '@@EatWhatGood';
 
 export interface QRContent {
     key: EatWhatGoodKey;
-    restaurants: Restaurant[];
+    restaurants: Omit<Restaurant, 'id'>[];
 }

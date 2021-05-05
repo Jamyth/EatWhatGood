@@ -59,7 +59,11 @@ export const useSettingScanAction = () => {
                 newItem.district = district;
                 list[index] = newItem;
             } else {
-                list.push(restaurant);
+                const id = Date.now().toString();
+                list.push({
+                    id,
+                    ...restaurant,
+                });
             }
         }
 
