@@ -6,6 +6,8 @@ import { District } from 'type/district';
 import { LocalStorageKey, LocalStorageUtil } from 'util/LocalStorageUtil';
 import { MTRUtil } from 'util/MTRUtil';
 import { BsChevronRight } from 'react-icons/bs';
+import { useSettingShareState } from '../hooks';
+import { useSettingShareAction } from '../index';
 
 interface Props {
     district: District;
@@ -18,6 +20,7 @@ export const ListItem = React.memo(({ district, defaultOpen }: Props) => {
         _.district.includes(district),
     );
     const [isCollapsed, setIsCollapsed] = React.useState(!defaultOpen);
+    const [selected, setSelected] = React.useState(false);
     const containerRef = React.useRef<HTMLDivElement>(null);
 
     const containerStyle: React.CSSProperties = {
@@ -25,6 +28,38 @@ export const ListItem = React.memo(({ district, defaultOpen }: Props) => {
         transition: 'height 0.3s ease-in-out',
         overflow: 'hidden',
     };
+
+    const selectedRestaurant = useSettingShareState((state) => state.selectedRestaurant);
+    const { updateSelectedRestaurant } = useSettingShareAction();
+
+    const onChange = () => {
+        if (selected) {
+            // deselect
+            const list = selectedRestaurant.filter((_) => !restaurants.map((_) => _.name).includes(_));
+            updateSelectedRestaurant(list);
+        } else {
+            // select
+            const name = restaurants.map((_) => _.name);
+            const list = Array.from([...new Set([...selectedRestaurant, ...name])]);
+            updateSelectedRestaurant(list);
+        }
+        setSelected(!selected);
+    };
+
+    React.useEffect(() => {
+        const set = new Set(selectedRestaurant);
+        let isSubset = true;
+        for (let i = 0; i < restaurants.length; i++) {
+            if (!set.has(restaurants[i].name)) {
+                isSubset = false;
+            }
+        }
+        if (isSubset) {
+            setSelected(true);
+        } else if (!isSubset && selected) {
+            setSelected(false);
+        }
+    }, [selectedRestaurant]);
 
     return (
         <Box position="relative" className="dropdown-container">
@@ -41,13 +76,17 @@ export const ListItem = React.memo(({ district, defaultOpen }: Props) => {
                 backgroundColor={backgroundColor}
                 borderBottomWidth="1px"
             >
-                {MTRUtil.translate(district)}
-                <BsChevronRight
-                    style={{
-                        transform: isCollapsed ? undefined : 'rotate(90deg)',
-                        transition: 'transform 0.15s ease-in-out',
-                    }}
-                />
+                <Checkbox d="flex" flex={1} isChecked={selected} onChange={onChange}>
+                    {MTRUtil.translate(district)}
+                </Checkbox>
+                <Flex flex={1} justifyContent="flex-end">
+                    <BsChevronRight
+                        style={{
+                            transform: isCollapsed ? undefined : 'rotate(90deg)',
+                            transition: 'transform 0.15s ease-in-out',
+                        }}
+                    />
+                </Flex>
             </Flex>
             <Box ref={containerRef} style={containerStyle}>
                 <VStack spacing={0} divider={<StackDivider mx={4} />}>
